@@ -27,3 +27,9 @@ debian/justniffer.substvars
 debian/justniffer/
 
 /tmp
+include/stamp-h1
+lib/libnids-1.21_patched/config.log
+lib/libnids-1.21_patched/config.status
+lib/libnids-1.21_patched/src/config.h
+*.xcodeproj*
+.idea/*

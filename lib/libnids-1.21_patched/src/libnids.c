@@ -87,7 +87,7 @@ char *nids_warnings[] = {
 };
 
 struct nids_prm nids_params = {
-    1040,			/* n_tcp_streams */
+    1040,			/* n_tcp_streams default 1040 */
     256,			/* n_hosts */
     NULL,			/* device */
     NULL,			/* filename */

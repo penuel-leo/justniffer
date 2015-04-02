@@ -1,0 +1,202 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		E706351E1ACCD5FA00B02C3C /* .git */ = {isa = PBXFileReference; lastKnownFileType = folder; path = .git; sourceTree = "<group>"; };
+		E706351F1ACCD5FA00B02C3C /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		E70635201ACCD5FA00B02C3C /* acinclude.m4 */ = {isa = PBXFileReference; lastKnownFileType = text; path = acinclude.m4; sourceTree = "<group>"; };
+		E70635211ACCD5FA00B02C3C /* aclocal.m4 */ = {isa = PBXFileReference; lastKnownFileType = text; path = aclocal.m4; sourceTree = "<group>"; };
+		E70635221ACCD5FA00B02C3C /* AUTHORS */ = {isa = PBXFileReference; lastKnownFileType = text; path = AUTHORS; sourceTree = "<group>"; };
+		E70635231ACCD5FA00B02C3C /* autom4te.cache */ = {isa = PBXFileReference; lastKnownFileType = folder; path = autom4te.cache; sourceTree = "<group>"; };
+		E70635241ACCD5FA00B02C3C /* build_debian.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = build_debian.sh; sourceTree = "<group>"; };
+		E70635251ACCD5FA00B02C3C /* ChangeLog */ = {isa = PBXFileReference; lastKnownFileType = text; path = ChangeLog; sourceTree = "<group>"; };
+		E70635261ACCD5FA00B02C3C /* config.guess */ = {isa = PBXFileReference; lastKnownFileType = file; path = config.guess; sourceTree = "<group>"; };
+		E70635271ACCD5FA00B02C3C /* config.sub */ = {isa = PBXFileReference; lastKnownFileType = file; path = config.sub; sourceTree = "<group>"; };
+		E70635281ACCD5FA00B02C3C /* configure */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = configure; sourceTree = "<group>"; };
+		E70635291ACCD5FA00B02C3C /* configure.ac */ = {isa = PBXFileReference; lastKnownFileType = text; path = configure.ac; sourceTree = "<group>"; };
+		E706352A1ACCD5FA00B02C3C /* COPYING */ = {isa = PBXFileReference; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
+		E706352B1ACCD5FA00B02C3C /* debian */ = {isa = PBXFileReference; lastKnownFileType = folder; path = debian; sourceTree = "<group>"; };
+		E706352C1ACCD5FA00B02C3C /* depcomp */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = depcomp; sourceTree = "<group>"; };
+		E706352D1ACCD5FA00B02C3C /* doc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = doc; sourceTree = "<group>"; };
+		E706352E1ACCD5FA00B02C3C /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; path = include; sourceTree = "<group>"; };
+		E706352F1ACCD5FA00B02C3C /* INSTALL */ = {isa = PBXFileReference; lastKnownFileType = text; path = INSTALL; sourceTree = "<group>"; };
+		E70635301ACCD5FA00B02C3C /* install-sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "install-sh"; sourceTree = "<group>"; };
+		E70635311ACCD5FA00B02C3C /* justmonitor */ = {isa = PBXFileReference; lastKnownFileType = folder; path = justmonitor; sourceTree = "<group>"; };
+		E70635321ACCD5FA00B02C3C /* justniffer.8 */ = {isa = PBXFileReference; lastKnownFileType = text; path = justniffer.8; sourceTree = "<group>"; };
+		E70635331ACCD5FA00B02C3C /* lib */ = {isa = PBXFileReference; lastKnownFileType = folder; path = lib; sourceTree = "<group>"; };
+		E70635341ACCD5FA00B02C3C /* libtool */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = libtool; sourceTree = "<group>"; };
+		E70635351ACCD5FA00B02C3C /* ltmain.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = ltmain.sh; sourceTree = "<group>"; };
+		E70635361ACCD5FA00B02C3C /* m4 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = m4; sourceTree = "<group>"; };
+		E70635371ACCD5FA00B02C3C /* make-release.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "make-release.sh"; sourceTree = "<group>"; };
+		E70635381ACCD5FA00B02C3C /* Makefile.am */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.am; sourceTree = "<group>"; };
+		E70635391ACCD5FA00B02C3C /* Makefile.in */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.in; sourceTree = "<group>"; };
+		E706353A1ACCD5FA00B02C3C /* missing */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = missing; sourceTree = "<group>"; };
+		E706353B1ACCD5FA00B02C3C /* NEWS */ = {isa = PBXFileReference; lastKnownFileType = text; path = NEWS; sourceTree = "<group>"; };
+		E706353C1ACCD5FA00B02C3C /* python */ = {isa = PBXFileReference; lastKnownFileType = folder; path = python; sourceTree = "<group>"; };
+		E706353D1ACCD5FA00B02C3C /* README */ = {isa = PBXFileReference; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		E706353E1ACCD5FA00B02C3C /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; path = src; sourceTree = "<group>"; };
+		E706353F1ACCD5FA00B02C3C /* test */ = {isa = PBXFileReference; lastKnownFileType = folder; path = test; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		E70635181ACCD5FA00B02C3C = {
+			isa = PBXGroup;
+			children = (
+				E706351E1ACCD5FA00B02C3C /* .git */,
+				E706351F1ACCD5FA00B02C3C /* .gitignore */,
+				E70635201ACCD5FA00B02C3C /* acinclude.m4 */,
+				E70635211ACCD5FA00B02C3C /* aclocal.m4 */,
+				E70635221ACCD5FA00B02C3C /* AUTHORS */,
+				E70635231ACCD5FA00B02C3C /* autom4te.cache */,
+				E70635241ACCD5FA00B02C3C /* build_debian.sh */,
+				E70635251ACCD5FA00B02C3C /* ChangeLog */,
+				E70635261ACCD5FA00B02C3C /* config.guess */,
+				E70635271ACCD5FA00B02C3C /* config.sub */,
+				E70635281ACCD5FA00B02C3C /* configure */,
+				E70635291ACCD5FA00B02C3C /* configure.ac */,
+				E706352A1ACCD5FA00B02C3C /* COPYING */,
+				E706352B1ACCD5FA00B02C3C /* debian */,
+				E706352C1ACCD5FA00B02C3C /* depcomp */,
+				E706352D1ACCD5FA00B02C3C /* doc */,
+				E706352E1ACCD5FA00B02C3C /* include */,
+				E706352F1ACCD5FA00B02C3C /* INSTALL */,
+				E70635301ACCD5FA00B02C3C /* install-sh */,
+				E70635311ACCD5FA00B02C3C /* justmonitor */,
+				E70635321ACCD5FA00B02C3C /* justniffer.8 */,
+				E70635331ACCD5FA00B02C3C /* lib */,
+				E70635341ACCD5FA00B02C3C /* libtool */,
+				E70635351ACCD5FA00B02C3C /* ltmain.sh */,
+				E70635361ACCD5FA00B02C3C /* m4 */,
+				E70635371ACCD5FA00B02C3C /* make-release.sh */,
+				E70635381ACCD5FA00B02C3C /* Makefile.am */,
+				E70635391ACCD5FA00B02C3C /* Makefile.in */,
+				E706353A1ACCD5FA00B02C3C /* missing */,
+				E706353B1ACCD5FA00B02C3C /* NEWS */,
+				E706353C1ACCD5FA00B02C3C /* python */,
+				E706353D1ACCD5FA00B02C3C /* README */,
+				E706353E1ACCD5FA00B02C3C /* src */,
+				E706353F1ACCD5FA00B02C3C /* test */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		E706351D1ACCD5FA00B02C3C /* justniffer */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = E70635401ACCD5FA00B02C3C /* Build configuration list for PBXLegacyTarget "justniffer" */;
+			buildPhases = (
+			);
+			buildToolPath = /usr/bin/make;
+			buildWorkingDirectory = /Users/penuel/workspace_x/justniffer;
+			dependencies = (
+			);
+			name = justniffer;
+			passBuildSettingsInEnvironment = 1;
+			productName = justniffer;
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXProject section */
+		E70635191ACCD5FA00B02C3C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+			};
+			buildConfigurationList = E706351C1ACCD5FA00B02C3C /* Build configuration list for PBXProject "justniffer" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E70635181ACCD5FA00B02C3C;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E706351D1ACCD5FA00B02C3C /* justniffer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		E706351A1ACCD5FA00B02C3C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx10.6;
+			};
+			name = Debug;
+		};
+		E706351B1ACCD5FA00B02C3C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				SDKROOT = macosx10.6;
+			};
+			name = Release;
+		};
+		E70635411ACCD5FA00B02C3C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUGGING_SYMBOLS = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = justniffer;
+			};
+			name = Debug;
+		};
+		E70635421ACCD5FA00B02C3C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = justniffer;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E706351C1ACCD5FA00B02C3C /* Build configuration list for PBXProject "justniffer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E706351A1ACCD5FA00B02C3C /* Debug */,
+				E706351B1ACCD5FA00B02C3C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E70635401ACCD5FA00B02C3C /* Build configuration list for PBXLegacyTarget "justniffer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E70635411ACCD5FA00B02C3C /* Debug */,
+				E70635421ACCD5FA00B02C3C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E70635191ACCD5FA00B02C3C /* Project object */;
+}
