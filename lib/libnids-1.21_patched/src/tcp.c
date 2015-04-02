@@ -161,7 +161,7 @@ nids_free_tcp_stream(struct tcp_stream * a_tcp)
   }
   a_tcp->next_free = free_streams;
   free_streams = a_tcp;
-  free(a_tcp);
+//  free(a_tcp);
   tcp_num--;
 }
 
@@ -273,13 +273,15 @@ add_new_tcp(struct tcphdr * this_tcphdr, struct ip * this_iphdr, const struct ti
     nids_free_tcp_stream(tcp_oldest);
     nids_params.syslog(NIDS_WARN_TCP, NIDS_WARN_TCP_TOOMUCH, ugly_iphdr, this_tcphdr);
   }
+    
+  if (tcp_num <= max_stream) {
       a_tcp = free_streams;
       if (!a_tcp) {
           fprintf(stderr, "gdb me ...\n");
           pause();
       }
       free_streams = a_tcp->next_free;
-    
+      
       tcp_num++;
       tolink = tcp_stream_table[hash_index];
       memset(a_tcp, 0, sizeof(struct tcp_stream));
@@ -305,6 +307,8 @@ add_new_tcp(struct tcphdr * this_tcphdr, struct ip * this_iphdr, const struct ti
           tcp_latest->prev_time = a_tcp;
       tcp_latest = a_tcp;
       return a_tcp;
+  }
+    return NULL;
 }
 
 static void
