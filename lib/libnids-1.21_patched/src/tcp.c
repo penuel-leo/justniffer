@@ -161,6 +161,7 @@ nids_free_tcp_stream(struct tcp_stream * a_tcp)
   }
   a_tcp->next_free = free_streams;
   free_streams = a_tcp;
+  free(a_tcp);
   tcp_num--;
 }
 
@@ -272,38 +273,42 @@ add_new_tcp(struct tcphdr * this_tcphdr, struct ip * this_iphdr, const struct ti
     nids_free_tcp_stream(tcp_oldest);
     nids_params.syslog(NIDS_WARN_TCP, NIDS_WARN_TCP_TOOMUCH, ugly_iphdr, this_tcphdr);
   }
-  a_tcp = free_streams;
-  if (!a_tcp) {
-    fprintf(stderr, "gdb me ...\n");
-    pause();
+    
+  if (tcp_num <= max_stream) {
+      a_tcp = free_streams;
+      if (!a_tcp) {
+          fprintf(stderr, "gdb me ...\n");
+          pause();
+      }
+      free_streams = a_tcp->next_free;
+      
+      tcp_num++;
+      tolink = tcp_stream_table[hash_index];
+      memset(a_tcp, 0, sizeof(struct tcp_stream));
+      a_tcp->hash_index = hash_index;
+      a_tcp->addr = addr;
+      a_tcp->client.state = TCP_SYN_SENT;
+      a_tcp->client.seq = ntohl(this_tcphdr->th_seq) + 1;
+      a_tcp->client.first_data_seq = a_tcp->client.seq;
+      a_tcp->client.window = ntohs(this_tcphdr->th_win);
+      a_tcp->client.ts_on = get_ts(this_tcphdr, &a_tcp->client.curr_ts);
+      a_tcp->client.wscale_on = get_wscale(this_tcphdr, &a_tcp->client.wscale);
+      a_tcp->server.state = TCP_CLOSE;
+      a_tcp->next_node = tolink;
+      a_tcp->prev_node = 0;
+      if (tolink)
+          tolink->prev_node = a_tcp;
+      tcp_stream_table[hash_index] = a_tcp;
+      a_tcp->next_time = tcp_latest;
+      a_tcp->prev_time = 0;
+      if (!tcp_oldest)
+          tcp_oldest = a_tcp;
+      if (tcp_latest)
+          tcp_latest->prev_time = a_tcp;
+      tcp_latest = a_tcp;
+      return a_tcp;
   }
-  free_streams = a_tcp->next_free;
-  
-  tcp_num++;
-  tolink = tcp_stream_table[hash_index];
-  memset(a_tcp, 0, sizeof(struct tcp_stream));
-  a_tcp->hash_index = hash_index;
-  a_tcp->addr = addr;
-  a_tcp->client.state = TCP_SYN_SENT;
-  a_tcp->client.seq = ntohl(this_tcphdr->th_seq) + 1;
-  a_tcp->client.first_data_seq = a_tcp->client.seq;
-  a_tcp->client.window = ntohs(this_tcphdr->th_win);
-  a_tcp->client.ts_on = get_ts(this_tcphdr, &a_tcp->client.curr_ts);
-  a_tcp->client.wscale_on = get_wscale(this_tcphdr, &a_tcp->client.wscale);
-  a_tcp->server.state = TCP_CLOSE;
-  a_tcp->next_node = tolink;
-  a_tcp->prev_node = 0;
-  if (tolink)
-    tolink->prev_node = a_tcp;
-  tcp_stream_table[hash_index] = a_tcp;
-  a_tcp->next_time = tcp_latest;
-  a_tcp->prev_time = 0;
-  if (!tcp_oldest)
-    tcp_oldest = a_tcp;
-  if (tcp_latest)
-    tcp_latest->prev_time = a_tcp;
-  tcp_latest = a_tcp;
-  return a_tcp;
+    return NULL;
 }
 
 static void
