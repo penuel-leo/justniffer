@@ -303,9 +303,11 @@ void parser::process_opening_connection(tcp_stream *ts, struct timeval* t, unsig
 	streams::const_iterator it = connections.find(ts->addr);
 	if (it == connections.end())
 	{
-		stream::ptr pstream(new stream(this, factories.begin(), factories.end(), _printer));
-		pstream->onOpening( ts, t);
-		connections[ts->addr]= pstream;
+        if (connections.size() < 1040) {//如果map已经大于1040了，则不再新增，除非其中一个stream处理完成erase了，导致有些stream永存在里面其他进不来?
+            stream::ptr pstream(new stream(this, factories.begin(), factories.end(), _printer));
+            pstream->onOpening( ts, t);
+            connections[ts->addr]= pstream;
+        }
 	}	
 }
 
