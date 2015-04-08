@@ -281,9 +281,21 @@ void parser::add_parse_element(const std::string& key, parse_element::ptr pelem)
     elements[key]=pelem;
 }
 
+bool parser::check_in_connections(tcp_stream *ts)
+{
+    streams::const_iterator it = connections.find(ts->addr);
+    if (it == connections.end()){
+        return false;
+    }else{
+        return true;
+    }
+}
+
 void parser::process_open_connection(tcp_stream *ts, struct timeval* t, unsigned char* packet)
 {
-	connections[ts->addr]->onOpen( ts, t);
+    if (check_in_connections(ts)) {
+        connections[ts->addr]->onOpen( ts, t);
+    }
 }
 
 void parser::on_print(void)
@@ -297,13 +309,13 @@ void parser::on_print(void)
         }
     }
 }
-    
+
 void parser::process_opening_connection(tcp_stream *ts, struct timeval* t, unsigned char* packet)
 {
 	streams::const_iterator it = connections.find(ts->addr);
 	if (it == connections.end())
 	{
-        if (connections.size() < 1040) {//如果map已经大于1040了，则不再新增，除非其中一个stream处理完成erase了，导致有些stream永存在里面其他进不来?
+        if (connections.size() < 2048) {//如果map已经大于1040了，则不再新增，除非其中一个stream处理完成erase了，导致有些stream永存在里面其他进不来?
             stream::ptr pstream(new stream(this, factories.begin(), factories.end(), _printer));
             pstream->onOpening( ts, t);
             connections[ts->addr]= pstream;
@@ -313,28 +325,36 @@ void parser::process_opening_connection(tcp_stream *ts, struct timeval* t, unsig
 
 void parser::process_server(tcp_stream *ts, struct timeval* t, unsigned char* packet)
 {
-	connections[ts->addr]->onResponse(ts, t);
+    if (check_in_connections(ts)) {
+        connections[ts->addr]->onResponse(ts, t);
+    }
 }
 
 void parser::process_client(tcp_stream *ts, struct timeval* t, unsigned char* packet)
 {
-	connections[ts->addr]->onRequest(ts, t);
+    if (check_in_connections(ts)) {
+        connections[ts->addr]->onRequest(ts, t);
+    }
 }
 
 void parser::process_end_data(tcp_stream *ts)
 {
     if (handle_truncated)
     {
-        connections[ts->addr]->onExit(ts);
-        connections.erase(ts->addr);
+        if (check_in_connections(ts)) {
+            connections[ts->addr]->onExit(ts);
+            connections.erase(ts->addr);
+        }
     }
 }
 
 void parser::process_close_connection(tcp_stream *ts, struct timeval* t, unsigned char* packet)
 {
-	connections[ts->addr]->onClose(ts, t, packet);
-	connections.erase(ts->addr);
-	//cout << "connections.erase\n";
+    if (check_in_connections(ts)) {
+        connections[ts->addr]->onClose(ts, t, packet);
+        connections.erase(ts->addr);
+        //cout << "connections.erase\n";
+    }
 }
 
 ///// keyword_base /////

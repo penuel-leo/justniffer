@@ -406,6 +406,7 @@ private:
 	bool _already_init;
 	const char* _parse_element(const char* format);
 	void init_parse_elements();
+    bool check_in_connections(tcp_stream *ts);
 	void process_opening_connection(tcp_stream *ts, struct timeval* t, unsigned char* packet);
 	void process_open_connection(tcp_stream *ts, struct timeval* t, unsigned char* packet);
 	void process_server(tcp_stream *ts, struct timeval* t, unsigned char* packet);
