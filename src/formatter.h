@@ -415,7 +415,7 @@ private:
 	void process_end_data(tcp_stream *ts);
 	static parser* theOnlyParser;
     static modules _modules;
-    int _max_lines, _counter;
+    int _max_lines, _counter, _discard_counter;
 	parse_elements elements;
 	streams connections;
 	handler_factories factories;

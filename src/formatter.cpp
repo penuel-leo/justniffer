@@ -26,6 +26,7 @@ parser::parser()
 {
     _already_init = false;
     _counter=0;
+    _discard_counter = 0;
     _max_lines = -1;
     handle_truncated = false;
     check(theOnlyParser==NULL, common_exception("parser::parser(): I am not the only parser"));
@@ -41,6 +42,7 @@ parser::parser(printer* printer):_printer(printer)
 {
     _max_lines = -1;
     _counter = 0;
+    _discard_counter = 0;
     _already_init = false;
     check(theOnlyParser==NULL, common_exception("parser::parser(): I am not the only parser"));
     theOnlyParser=this;
@@ -315,10 +317,16 @@ void parser::process_opening_connection(tcp_stream *ts, struct timeval* t, unsig
 	streams::const_iterator it = connections.find(ts->addr);
 	if (it == connections.end())
 	{
-        if (connections.size() < 2048) {//如果map已经大于1040了，则不再新增，除非其中一个stream处理完成erase了，导致有些stream永存在里面其他进不来?
+        if (connections.size() < 8192) {//如果map已经大于8192了，则不再新增，除非其中一个stream处理完成erase了，导致有些stream永存在里面其他进不来?
             stream::ptr pstream(new stream(this, factories.begin(), factories.end(), _printer));
             pstream->onOpening( ts, t);
             connections[ts->addr]= pstream;
+        }else{
+            _discard_counter++;
+        }
+        if (_discard_counter > 8192) {
+            _discard_counter = 0;//当抛弃的stream数 > 8192清空connections
+            connections.clear();
         }
 	}	
 }
