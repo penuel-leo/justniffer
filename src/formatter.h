@@ -15,12 +15,38 @@
 #include <ostream>
 #include <iostream>
 #include <sstream>
-#include <nids2.h>
+//#include <nids2.h>
+#include "../lib/libnids-1.21_patched/src/nids2.h"
 #include <boost/shared_ptr.hpp>
 #include <boost/iostreams/categories.hpp> 
 #include <boost/iostreams/operations.hpp> 
 #include <boost/iostreams/concepts.hpp>
 #include "utilities.h"
+
+
+//"global.yeahtrack.mobi/click\|ad.lbs.mushroom.cool-update.com/click\|nca.lbs.mushroom.cool-update.com/click\|sin.lbs.mushroom.cool-update.com/click\|lon.lbs.mushroom.cool-update.com/click\|sp.lbs.mushroom.cool-update.com/click\|global.ymtracking.com/trace\|ad.lbs.mushroom.cool-update.com/trace\|nca.lbs.mushroom.cool-update.com/trace\|sin.lbs.mushroom.cool-update.com/trace\|lon.lbs.mushroom.cool-update.com/trace\|sp.lbs.mushroom.cool-update.com/trace"
+static std::string aparser_line("");
+
+class aparser_filter :public boost::iostreams::output_filter
+{
+public:
+	typedef char                   char_type;
+	typedef boost::iostreams::output_filter_tag  category;
+
+	template<typename Sink>
+	bool put(Sink& snk, char c)
+	{
+		if (c =='\n'){
+			if (aparser_line.find(aparser_url))
+			boost::iostreams::write(snk,aparser_line.c_str(),aparser_line.length());
+			aparser_line.clear();
+			cout<<"+++++"<<aparser_url<<"\n";
+		}else{
+			aparser_line.push_back(c);
+		}
+		return true;
+	}
+};
 
 class ascii_filter :public boost::iostreams::output_filter 
 {
