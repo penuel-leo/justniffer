@@ -22,9 +22,12 @@
 #include <map>
 #include <iostream>
 #include <fstream>
-#include <nids2.h>
+//#include <nids2.h>
+#include "../lib/libnids-1.21_patched/src/nids2.h"
 #include "formatter.h"
 #include "utilities.h"
+
+char *aparser_url = new char[4096];
 
 using namespace std;
 namespace po = boost::program_options;
@@ -90,6 +93,7 @@ const char* default_not_found = "-";
 const char* force_read_pcap = "force-read-pcap";
 const char* max_line_cmd = "max-log-number";
 const char* python_cmd = "python";
+const char* aparser_cmd = "aparser";
 
 typedef vector<string>::const_iterator args_type;
 bool check_conflicts( const po::variables_map &vm, const vector<string>& arguments)
@@ -174,6 +178,7 @@ int main(int argc, char*argv [])
             (string(max_fragmented_ip_hosts).append(",d").c_str(), po::value<int>(&max_fragmented_ip_hosts_v)->default_value(65536), "Max concurrent fragmented ip host")
 			(string(force_read_pcap).append(",F").c_str(), "force the reading of the pcap file ignoring the snaplen value. WARNING: could give unexpected results")
 			(string(python_cmd).append(",P").c_str(), po::value<string>(), "python file and class: <filename>#<handler_name>. Example: -P my_script.py#MyHandler")
+			(string(aparser_cmd).append(",A").c_str(), po::value<string>(), "aparser url,split by ,")
 		;
 
 		po::variables_map vm;        
@@ -206,6 +211,10 @@ int main(int argc, char*argv [])
 		{
 			out.push(ascii_filter_ext());
 		}
+
+		po::variable_value aparser_arg = vm[aparser_cmd];
+		strcat(aparser_url,aparser_arg.as<string>().c_str());
+		out.push(aparser_filter());
 		out.push(std::cout);
 
 		po::variable_value config = vm[config_cmd];
