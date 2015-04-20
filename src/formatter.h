@@ -37,10 +37,20 @@ public:
 	bool put(Sink& snk, char c)
 	{
 		if (c =='\n'){
-			if (aparser_line.find(aparser_url))
 			boost::iostreams::write(snk,aparser_line.c_str(),aparser_line.length());
-			aparser_line.clear();
 			cout<<"+++++"<<aparser_url<<"\n";
+			const char * split = ",";
+			char* token = strtok(aparser_url, split);
+			while (token!=NULL){
+				cout<<"========"<<token<<"\n";
+				string::size_type position=aparser_line.find(token);
+				if (position != aparser_line.npos){//找到则输出
+					cout<<"<<<<<<<<"<<token<<"---"<<position<<">>>>>>>>"<<"\n";
+					break;
+				}
+				token = strtok(NULL, split);
+			}
+			aparser_line.clear();
 		}else{
 			aparser_line.push_back(c);
 		}
