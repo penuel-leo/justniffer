@@ -29,6 +29,7 @@
 
 static std::string aparser_line("");
 static std::string logfilesuf("");
+static vector<std::string>  aparser_vector;
 
 class aparser_filter :public boost::iostreams::output_filter
 {
@@ -40,25 +41,27 @@ public:
 	bool put(Sink& snk, char c)
 	{
 		if (c =='\n'){
-			boost::iostreams::write(snk,aparser_line.c_str(),aparser_line.length());
-			const char * split = ",";
-			char* token = strtok(aparser_url, split);
-			while (token!=NULL){
-				string::size_type position=aparser_line.find(token);
-				if (position != aparser_line.npos){//找到则输出
-					std::string new_logfilesuf = getFileName();
-					std::ofstream outfile;
-					if (strcmp(new_logfilesuf.c_str(),logfilesuf.c_str())!=0){
-						std::string logfile = justniffer_log_path+(getFileName());
-						if (outfile && outfile.is_open()){
-							outfile.close();
+			aparser_line.push_back('\n');
+//			boost::iostreams::write(snk,aparser_line.c_str(),aparser_line.length()); //console不再输出
+			if(aparser_vector.empty() || aparser_vector.size() <= 0){
+				parse_aparser_url();
+			}else{
+				for(int i = 0; i < aparser_vector.size(); i++) {
+					string::size_type position=aparser_line.find(aparser_vector[i]);
+					if (position != aparser_line.npos) {//找到则输出
+						std::string new_logfilesuf = getFileName();
+						std::ofstream outfile;
+						if (strcmp(new_logfilesuf.c_str(), logfilesuf.c_str()) != 0) {
+							std::string logfile = justniffer_log_path + (getFileName());
+							if (outfile && outfile.is_open()) {
+								outfile.close();
+							}
+							outfile.open(logfile.c_str(), std::fstream::app);
 						}
-						outfile.open(logfile.c_str(),std::fstream::app);
+						outfile << aparser_line << endl;
+						break;
 					}
-					outfile << aparser_line << endl;
-					break;
 				}
-				token = strtok(NULL, split);
 			}
 			aparser_line.clear();
 		}else{
@@ -99,6 +102,16 @@ public:
 			ss << i;
 		}
 		return ss.str();
+	}
+
+	bool parse_aparser_url()
+	{
+		const char * delim = ",";
+		char *token, *cur = aparser_url;
+		while (token = strsep(&cur, delim)) {
+			aparser_vector.push_back(string(token));
+		}
+		return true;
 	}
 };
 
