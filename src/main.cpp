@@ -224,6 +224,7 @@ int main(int argc, char*argv [])
 		strcat(justniffer_log_path,justniffer_log_path_arg.as<string>().c_str());
 		po::variable_value split_file_period_arg = vm[split_file_period_cmd];
 		split_minutes=atoi(split_file_period_arg.as<string>().c_str());
+		cout <<"----"<<aparser_url<<"----"<<justniffer_log_path<<"----"<<split_minutes<<endl;
 		out.push(aparser_filter());
 		out.push(std::cout);
 

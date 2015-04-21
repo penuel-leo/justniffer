@@ -64,7 +64,7 @@ public:
 		}else{
 			aparser_line.push_back(c);
 		}
-		return false;
+		return true;
 	}
 
 	std::string getFileName(){
