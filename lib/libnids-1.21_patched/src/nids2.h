@@ -166,6 +166,8 @@ extern u_char *nids_last_pcap_data;
 extern u_int nids_linkoffset;
 extern struct tcp_timeout *nids_tcp_timeouts;
 extern char *aparser_url;//一个url大概40个字符,定义可以容纳100个，即4000
+extern char *justniffer_log_path;//log路径
+extern int split_minutes;
 
 struct nids_chksum_ctl {
 	u_int netaddr;

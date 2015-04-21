@@ -14,9 +14,12 @@
 #include <map>
 #include <ostream>
 #include <iostream>
+#include <fstream>
+#include <iomanip>
+#include <time.h>
 #include <sstream>
-//#include <nids2.h>
-#include "../lib/libnids-1.21_patched/src/nids2.h"
+#include <nids2.h>
+//#include "../lib/libnids-1.21_patched/src/nids2.h"
 #include <boost/shared_ptr.hpp>
 #include <boost/iostreams/categories.hpp> 
 #include <boost/iostreams/operations.hpp> 
@@ -24,8 +27,8 @@
 #include "utilities.h"
 
 
-//"global.yeahtrack.mobi/click\|ad.lbs.mushroom.cool-update.com/click\|nca.lbs.mushroom.cool-update.com/click\|sin.lbs.mushroom.cool-update.com/click\|lon.lbs.mushroom.cool-update.com/click\|sp.lbs.mushroom.cool-update.com/click\|global.ymtracking.com/trace\|ad.lbs.mushroom.cool-update.com/trace\|nca.lbs.mushroom.cool-update.com/trace\|sin.lbs.mushroom.cool-update.com/trace\|lon.lbs.mushroom.cool-update.com/trace\|sp.lbs.mushroom.cool-update.com/trace"
 static std::string aparser_line("");
+static std::string logfilesuf("");
 
 class aparser_filter :public boost::iostreams::output_filter
 {
@@ -38,14 +41,22 @@ public:
 	{
 		if (c =='\n'){
 			boost::iostreams::write(snk,aparser_line.c_str(),aparser_line.length());
-			cout<<"+++++"<<aparser_url<<"\n";
+			cout<<"+++++"<<aparser_url<<",split_minutes="<<split_minutes<<"\n";
 			const char * split = ",";
 			char* token = strtok(aparser_url, split);
 			while (token!=NULL){
-				cout<<"========"<<token<<"\n";
 				string::size_type position=aparser_line.find(token);
 				if (position != aparser_line.npos){//找到则输出
-					cout<<"<<<<<<<<"<<token<<"---"<<position<<">>>>>>>>"<<"\n";
+					std::string new_logfilesuf = getFileName();
+					std::ofstream outfile;
+					if (strcmp(new_logfilesuf.c_str(),logfilesuf.c_str())!=0){
+						std::string logfile = justniffer_log_path+(getFileName());
+						if (outfile && outfile.is_open()){
+							outfile.close();
+						}
+						outfile.open(logfile.c_str(),std::fstream::app);
+					}
+					outfile << aparser_line << endl;
 					break;
 				}
 				token = strtok(NULL, split);
@@ -54,7 +65,40 @@ public:
 		}else{
 			aparser_line.push_back(c);
 		}
-		return true;
+		return false;
+	}
+
+	std::string getFileName(){
+		std::string logNameSuf("/justniffer.log.");
+		time_t now;
+		time(&now);
+		struct tm *fmt;
+		fmt = localtime(&now);
+		int s_year = fmt->tm_year+1900;
+		int s_month = fmt->tm_mon+1;
+		int s_day = fmt->tm_mday;
+		logNameSuf.append(convert_to_string(s_year)).append(convert_to_string(s_month)).append(convert_to_string(s_day));
+		int hours = fmt->tm_hour;
+		int minutes = fmt->tm_min;
+		if (split_minutes > 1440){
+			split_minutes = 1440;
+		}
+		int fragmentInMinutes=hours*60+minutes;
+		int rate=fragmentInMinutes/split_minutes;
+		int n_minutes=rate*split_minutes;
+		int n_hours=n_minutes/60;
+		logNameSuf.append(convert_to_string(n_hours)).append(convert_to_string(n_minutes));
+		return logNameSuf;
+	}
+
+	std::string convert_to_string(int i){
+		std::stringstream ss;
+		if (i < 10) {
+			ss << "0" << i;
+		}else{
+			ss << i;
+		}
+		return ss.str();
 	}
 };
 
