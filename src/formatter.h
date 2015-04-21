@@ -41,7 +41,6 @@ public:
 	{
 		if (c =='\n'){
 			boost::iostreams::write(snk,aparser_line.c_str(),aparser_line.length());
-			cout<<"+++++"<<aparser_url<<",split_minutes="<<split_minutes<<"\n";
 			const char * split = ",";
 			char* token = strtok(aparser_url, split);
 			while (token!=NULL){
