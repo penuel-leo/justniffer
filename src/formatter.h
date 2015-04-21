@@ -85,8 +85,9 @@ public:
 		int fragmentInMinutes=hours*60+minutes;
 		int rate=fragmentInMinutes/split_minutes;
 		int n_minutes=rate*split_minutes;
-		int n_hours=n_minutes/60;
-		logNameSuf.append(convert_to_string(n_hours)).append(convert_to_string(n_minutes));
+		int s_hours=n_minutes/60;
+		int s_minutes=n_minutes%60;
+		logNameSuf.append(convert_to_string(s_hours)).append(convert_to_string(s_minutes));
 		return logNameSuf;
 	}
 
