@@ -71,7 +71,7 @@ public:
 	}
 
 	std::string getFileName(){
-		std::string logNameSuf("/justniffer.log.");
+		std::string logNameSuf("justniffer.log.");
 		time_t now;
 		time(&now);
 		struct tm *fmt;
