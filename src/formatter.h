@@ -52,7 +52,9 @@ public:
 						std::string new_logfilesuf = getFileName();
 						std::ofstream outfile;
 						if (strcmp(new_logfilesuf.c_str(), logfilesuf.c_str()) != 0) {
-							std::string logfile = justniffer_log_path + (getFileName());
+							logfilesuf.clear();
+							logfilesuf.push_back(new_logfilesuf);
+							std::string logfile = justniffer_log_path + new_logfilesuf;
 							if (outfile && outfile.is_open()) {
 								outfile.close();
 							}
