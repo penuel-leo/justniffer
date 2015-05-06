@@ -51,9 +51,7 @@ public:
 					if (position != aparser_line.npos) {//找到则输出
 						std::string new_logfilesuf = getFileName();
 						std::ofstream outfile;
-						if (strcmp(new_logfilesuf.c_str(), logfilesuf.c_str()) != 0) {
-							logfilesuf.clear();
-							logfilesuf.append(new_logfilesuf);
+						if (strcmp(new_logfilesuf.c_str(), logfilesuf.c_str()) != 0) { //这里是每条写，写完会关闭流，所以不用比较
 							std::string logfile = justniffer_log_path + new_logfilesuf;
 							if (outfile && outfile.is_open()) {
 								outfile.close();
