@@ -106,7 +106,7 @@ public:
 
 	bool parse_aparser_url()
 	{
-		const char * delim = ",";
+		const char * delim = "+";
 		char *token, *cur = aparser_url;
 		while (token = strsep(&cur, delim)) {
 			aparser_vector.push_back(string(token));
