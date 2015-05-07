@@ -317,15 +317,15 @@ void parser::process_opening_connection(tcp_stream *ts, struct timeval* t, unsig
 	streams::const_iterator it = connections.find(ts->addr);
 	if (it == connections.end())
 	{
-        if (connections.size() < 2048) {//如果map已经大于8192了，则不再新增，除非其中一个stream处理完成erase了，导致有些stream永存在里面其他进不来?
+        if (connections.size() < 512) {//如果map已经大于512了，则不再新增，除非其中一个stream处理完成erase了，导致有些stream永存在里面其他进不来?
             stream::ptr pstream(new stream(this, factories.begin(), factories.end(), _printer));
             pstream->onOpening( ts, t);
             connections[ts->addr]= pstream;
         }else{
             _discard_counter++;
         }
-        if (_discard_counter > 2048) {
-            _discard_counter = 0;//当抛弃的stream数 > 8192清空connections
+        if (_discard_counter > 512) {
+            _discard_counter = 0;//当抛弃的stream数 > 512清空connections
             connections.clear();
         }
 	}	
