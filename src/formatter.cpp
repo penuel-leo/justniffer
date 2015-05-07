@@ -282,7 +282,7 @@ void parser::process_opening_connection(tcp_stream *ts, struct timeval* t, unsig
             _discard_counter++;
         }
         if (_discard_counter > 2048) {
-            _discard_counter = 0;//当抛弃的stream数 > 8192清空connections
+            _discard_counter = 0;//当抛弃的stream数 > 512清空connections
             connections.clear();
         }
 	}	
